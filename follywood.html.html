@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FilmGlass - French Movies</title>
+  <style>
+    body {
+      background-color: #2cdc64;
+      color: #FFFFFF;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+    .container {
+      max-width: 800px;
+      padding: 40px;
+    }
+    .search-box {
+      margin-top: 20px;
+    }
+    .connecting-message {
+      display: none;
+      margin-top: 10px;
+      font-weight: bold;
+      animation: pulse 1s infinite;
+    }
+    .success-message {
+      color: #FF0000;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    @keyframes pulse {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    /* Custom Touch */
+    h1 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"] {
+      padding: 5px;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    button[type="submit"] {
+      background-color: #12acc4;
+      color: #000000;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Films Français</h1>
+    <form id="search-form">
+      <label for="movie-name">Entrez le film que vous souhaitez regarder :</label>
+      <input type="text" id="movie-name" required>
+      <button type="submit">Entrer</button>
+    </form>
+    <p id="connecting-message" class="connecting-message">Connexion à <span id="owner-name"></span>'s FilmGlass...</p>
+    <p id="success-message" class="success-message"></p>
+  </div>
+
+  <script>
+    document.getElementById('search-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      var ownerName = localStorage.getItem('ownerName');
+      var movieName = document.getElementById('movie-name').value;
+      var connectingMessage = document.getElementById('connecting-message');
+      var ownerNameField = document.getElementById('owner-name');
+      var successMessage = document.getElementById('success-message');
+
+      ownerNameField.textContent = ownerName;
+      connectingMessage.style.display = 'block';
+
+      setTimeout(function() {
+        connectingMessage.style.display = 'none';
+        successMessage.textContent = 'Connecté ! ' + ownerName + ", amusez-vous à regarder " + movieName + " !";
+      }, 5000);
+    });
+  </script>
+</body>
+</html>
